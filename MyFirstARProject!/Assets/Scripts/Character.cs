@@ -57,7 +57,7 @@ public class Character : MonoBehaviour
             Vector3 otherPosition = otherCharacter.transform.position;
             float distance = Vector3.Distance(myPosition, otherPosition);
             
-            if (distance <= 0.1f)
+            if (distance <= 0.15f)
             {
                 AnimationController.SetBool("Attacking", true);
                 AnimationController.SetBool("Idling", false);
