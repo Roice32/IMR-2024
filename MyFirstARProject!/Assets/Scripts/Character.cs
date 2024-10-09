@@ -1,27 +1,22 @@
 using System.Linq;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Character : MonoBehaviour
 {
+    private static readonly double ATTACK_RANGE = 0.15d;
+
     private Animator AnimationController;
     private List<Character> OtherCharacters;
+    private Vector3 MyPosition;
 
-    void Start()
-    {
-        GetAnimationController();
-        DetectOtherCharacters();
-        SignalMySpawningToOthers();
-    }
 
     private void GetAnimationController()
     {
-        AnimationController = GetComponent<Animator>();
 
-        if (AnimationController != null)
+        if (TryGetComponent(out AnimationController))
         {
-            AnimationController.SetBool("Idling", true);
+            GoIdle();
         }
         else
         {
@@ -35,37 +30,43 @@ public class Character : MonoBehaviour
         OtherCharacters.Remove(this);
     }
 
-    private void SignalMySpawningToOthers()
+    private void GoIdle()
     {
-        foreach (Character character in OtherCharacters)
-        {
-            character.RegisterNewCharacterInScene(this);
-        }
+        AnimationController.SetBool("Idling", true);
+        AnimationController.SetBool("Attacking", false);
     }
 
-    public void RegisterNewCharacterInScene(Character newCharacter)
+    private void StartAttacking()
     {
-        OtherCharacters.Add(newCharacter);
+        AnimationController.SetBool("Attacking", true);
+        AnimationController.SetBool("Idling", false);
+    }
+
+    private double GetDistanceToCharacter(Character otherCharacter)
+    {
+        Vector3 otherPosition = otherCharacter.transform.position;
+        return Vector3.Distance(MyPosition, otherPosition);
+    }
+
+    void Start()
+    {
+        GetAnimationController();
+        DetectOtherCharacters();
     }
 
     void Update()
     {
-        Vector3 myPosition = transform.position;
-        
+        MyPosition = transform.position;
+
         foreach (Character otherCharacter in OtherCharacters)
         {
-            Vector3 otherPosition = otherCharacter.transform.position;
-            float distance = Vector3.Distance(myPosition, otherPosition);
-            
-            if (distance <= 0.15f)
+            if (GetDistanceToCharacter(otherCharacter) <= ATTACK_RANGE)
             {
-                AnimationController.SetBool("Attacking", true);
-                AnimationController.SetBool("Idling", false);
+                StartAttacking();
                 return;
             }
         }
 
-        AnimationController.SetBool("Idling", true);
-        AnimationController.SetBool("Attacking", false);
+        GoIdle();
     }
 }
