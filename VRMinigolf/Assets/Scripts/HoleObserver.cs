@@ -1,14 +1,19 @@
-using System;
 using UnityEngine;
 
 public class HoleObserver : MonoBehaviour
 {
+    private GameLogic GameLogic;
+
+    private void Start()
+    {
+        GameLogic = FindObjectOfType<GameLogic>();
+    }
 
     private void OnTriggerEnter(Collider other)
     {
         if (BallEnteredHole(other))
         {
-            Debug.Log("Ball entered hole");
+            GameLogic.UpdateOnHole();
             ResetBallPosition();
         }
     }

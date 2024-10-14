@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class BallBehavior : MonoBehaviour
@@ -8,18 +7,17 @@ public class BallBehavior : MonoBehaviour
     private static readonly Vector3 RESET_ROTATION_VELOCITY = new(0, 0, 0);
     private static readonly Vector3 RESET_VELOCITY = new(0, 0, 0);
     private static readonly Vector3 RESET_COORDS = new(0, 0.25f, 0);
-
+    
+    private GameLogic GameLogic;
     private Rigidbody ControlledRigidBody;
-    private int TimesHit;
+
+    public int TimesHit { get; private set; }
 
     void Start()
     {
         ControlledRigidBody = GetComponent<Rigidbody>();
+        GameLogic = FindObjectOfType<GameLogic>();
         TimesHit = 0;
-    }
-
-    void Update()
-    {
     }
 
     public void Reset()
@@ -31,5 +29,14 @@ public class BallBehavior : MonoBehaviour
         transform.position = RESET_COORDS;
 
         TimesHit = 0;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Club"))
+        {
+            TimesHit++;
+            GameLogic.UpdateOnBallHit();
+        }
     }
 }
