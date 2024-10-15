@@ -1733,6 +1733,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aad7f5179b83db5419514dae04f83c67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HitVFXPrefab: {fileID: 4603190233761148062, guid: fe3ad367189b9cc49bc975a856420e38, type: 3}
 --- !u!1 &1060892151
 GameObject:
   m_ObjectHideFlags: 0
