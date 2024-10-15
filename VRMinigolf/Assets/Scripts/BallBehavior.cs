@@ -9,7 +9,7 @@ public class BallBehavior : MonoBehaviour
     private static readonly Vector3 RESET_COORDS = new(0, 0.25f, 0);
     private static readonly int HIT_COOLDOWN_MILLIS = 1000;
 
-    private static readonly int HIT_VFX_DURATION_MILLIS = 500;
+    private static readonly int HIT_VFX_DURATION_MILLIS = 250;
     private static readonly Vector3 INITIAL_VFX_SIZE = new(0.01f, 0.01f, 0.01f);
     private static readonly Vector3 FINAL_VFX_SIZE = new(0.3f, 0.3f, 0.3f);
 
