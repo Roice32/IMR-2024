@@ -7,17 +7,32 @@ public class BallBehavior : MonoBehaviour
     private static readonly Vector3 RESET_ROTATION_VELOCITY = new(0, 0, 0);
     private static readonly Vector3 RESET_VELOCITY = new(0, 0, 0);
     private static readonly Vector3 RESET_COORDS = new(0, 0.25f, 0);
+    private static readonly int HIT_COOLDOWN_MILLIS = 1000;
     
     private GameLogic GameLogic;
     private Rigidbody ControlledRigidBody;
 
     public int TimesHit { get; private set; }
+    private int CooldownMillisLeft;
 
     void Start()
     {
         ControlledRigidBody = GetComponent<Rigidbody>();
         GameLogic = FindObjectOfType<GameLogic>();
         TimesHit = 0;
+        CooldownMillisLeft = 0;
+    }
+
+    void Update()
+    {
+        if (CooldownMillisLeft > 0)
+        {
+            CooldownMillisLeft -= (int)(Time.deltaTime * 1000);
+        }
+        if (CooldownMillisLeft < 0)
+        {
+            CooldownMillisLeft = 0;
+        }
     }
 
     public void Reset()
@@ -35,8 +50,12 @@ public class BallBehavior : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Club"))
         {
-            TimesHit++;
-            GameLogic.UpdateOnBallHit();
+            if (CooldownMillisLeft == 0)
+            {
+                CooldownMillisLeft = HIT_COOLDOWN_MILLIS;
+                TimesHit++;
+                GameLogic.UpdateOnBallHit();
+            }
         }
     }
 }
