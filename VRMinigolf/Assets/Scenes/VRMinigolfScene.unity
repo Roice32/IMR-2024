@@ -3150,7 +3150,7 @@ PrefabInstance:
     - target: {fileID: 9014170783705847993, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
       propertyPath: m_ModelPrefab
       value: 
-      objectReference: {fileID: 441128079119065088, guid: c3870aa850aff5a43aee781b6379732c, type: 3}
+      objectReference: {fileID: 576705028161565364, guid: 9538ec1a581a95742bbda0b7e68ded28, type: 3}
     - target: {fileID: 9014170783728641054, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
       propertyPath: m_LocalScale.y
       value: 1
@@ -3158,7 +3158,7 @@ PrefabInstance:
     - target: {fileID: 9014170785475729497, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
       propertyPath: m_ModelPrefab
       value: 
-      objectReference: {fileID: 441128079119065088, guid: 0d2eaa71a70fe824da8b3f8f78b3bf76, type: 3}
+      objectReference: {fileID: 576705028161565364, guid: 0fdfe87086a6ff347b00c47aad773ae4, type: 3}
     - target: {fileID: 9032954039820430273, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
       propertyPath: m_SelectActionTrigger
       value: 2
